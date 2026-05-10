@@ -73,7 +73,7 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: "pnpm run build && pnpm run start-prod",
+    command: "npm run build && npm run start-prod",
     url: "http://localhost:5001",
     reuseExistingServer: !process.env.CI,
   },
