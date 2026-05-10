@@ -10,4 +10,19 @@ describe("Pokedex", () => {
       ),
     ).toBeVisible();
   });
+
+  test("can be navigated to detail page and display detail info", async ({
+    page,
+  }) => {
+    await page.goto("");
+    await page.getByText("ivysaur").click();
+
+    await expect(page.getByText("overgrow")).toBeVisible();
+    await expect(page.getByText("chlorophyll")).toBeVisible();
+    await expect(
+      page.getByText(
+        "Pokémon and Pokémon character names are trademarks of Nintendo.",
+      ),
+    ).toBeVisible();
+  });
 });
