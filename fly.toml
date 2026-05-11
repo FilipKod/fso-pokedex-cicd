@@ -1,0 +1,29 @@
+# fly.toml app configuration file generated for fso-pokedex-cicd on 2026-05-11T15:59:36+02:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'fso-pokedex-cicd'
+primary_region = 'fra'
+
+[build]
+
+[env]
+  PORT = 5001
+
+[processes]
+  app = "node app.js"
+
+[http_service]
+  internal_port = 5001
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  memory = '256mb'
+  cpu_kind = 'shared'
+  cpus = 1
+  memory_mb = 256
