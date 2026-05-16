@@ -28,5 +28,5 @@ jobs:
         run: echo "$COMMIT_MESSAGE"
       - name: join
         env: 
-          JOIN: ${{ join(github.event.commits.*.message, ',') }}
+          JOIN: ${{ join(github.event.commits.*.message, ' ') }}
         run: echo "$JOIN"
