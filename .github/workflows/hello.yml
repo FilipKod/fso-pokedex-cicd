@@ -26,3 +26,5 @@ jobs:
         env:
           COMMIT_MESSAGE: ${{ toJson(github.event.commits.*.message) }}
         run: echo "$COMMIT_MESSAGE"
+      - name: only contains is true
+        run: echo "Ahoj svet"
