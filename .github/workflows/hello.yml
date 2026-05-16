@@ -18,7 +18,7 @@ jobs:
         env:
           EVENT: ${{ toJson(github.event) }}
         run: echo "$EVENT"
-      - name: commits
+      - name: commits echo
         env:
           COMMITS: ${{ toJson(github.event.commits) }}
         run: echo "$COMMITS"
