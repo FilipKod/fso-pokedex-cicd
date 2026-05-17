@@ -46,7 +46,7 @@ jobs:
   discord_notify:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' }}
+    if: ${{ github.event_name == 'push' && (success() || failure()) }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v6
