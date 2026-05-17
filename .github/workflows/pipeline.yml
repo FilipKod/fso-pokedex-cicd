@@ -54,10 +54,6 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'push' && success() }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v6
-        with:
-          node-version: "24"
       - uses: sarisia/actions-status-discord@v1
         if: success()
         with:
@@ -74,12 +70,8 @@ jobs:
   discord_notify_failure:
     needs: [deploy]
     runs-on: ubuntu-latest
-    if: ${{ always() && needs.simple_deployment_pipeline.result == 'failure' }}
+    if: ${{ always() && needs.deploy.result == 'failure' }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v6
-        with:
-          node-version: "24"
       - uses: sarisia/actions-status-discord@v1
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
