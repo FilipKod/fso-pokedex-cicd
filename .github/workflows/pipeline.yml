@@ -43,10 +43,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
 
-  discord_notify:
+  discord_notify_success:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && (success() || failure()) }}
+    if: ${{ github.event_name == 'push' && success() }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v6
@@ -64,8 +64,17 @@ jobs:
             **Commit:** `${{ github.event.after }}`
             **Message:** `${{ github.event.head_commit.message }}`
             **Author:** `${{ github.event.head_commit.author.name }}`
+
+  discord_notify_failure:
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-latest
+    if: ${{ always() && needs.simple_deployment_pipeline.result == 'failure' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
       - uses: sarisia/actions-status-discord@v1
-        if: failure()
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           title: Failure Details
